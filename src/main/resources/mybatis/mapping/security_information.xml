@@ -12,7 +12,7 @@
     <select id="selectSecurityInformation" parameterClass="SecurityInformation" resultMap="securityInformation.rm">
         SELECT * FROM security_information
         WHERE account_name LIKE #accountName#
-        AND password LIKE '$password$'
+        AND password LIKE #password#
     </select>
 
     <insert id="insertSecurityInformation" parameterClass="SecurityInformation">
