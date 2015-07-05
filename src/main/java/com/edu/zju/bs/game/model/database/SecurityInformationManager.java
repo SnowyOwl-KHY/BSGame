@@ -1,4 +1,4 @@
-package com.edu.zju.bs.game.model.managers;
+package com.edu.zju.bs.game.model.database;
 
 import com.edu.zju.bs.game.model.data.SecurityInformation;
 import com.ibatis.sqlmap.client.SqlMapClient;

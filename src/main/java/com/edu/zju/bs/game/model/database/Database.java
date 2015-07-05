@@ -1,4 +1,4 @@
-package com.edu.zju.bs.game.model.managers;
+package com.edu.zju.bs.game.model.database;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 /**
  * Created by kehanyang on 15/6/26.
  */
-public class DatabaseManager {
+public class Database {
 
     private SqlMapClient sqlMapClient;
 
@@ -20,7 +20,7 @@ public class DatabaseManager {
 
     private static boolean initialFlag = false;
 
-    public DatabaseManager() {
+    public Database() {
         super();
         try {
             Reader reader = Resources.getResourceAsReader("mybatis/config.xml");
@@ -58,7 +58,7 @@ public class DatabaseManager {
     }
 
     public static void main(String[] args) {
-        Logger logger= Logger.getLogger(DatabaseManager.class.getName());
+        Logger logger= Logger.getLogger(Database.class.getName());
         logger.info("test");
     }
 }
