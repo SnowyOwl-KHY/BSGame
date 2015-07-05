@@ -7,6 +7,7 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 /**
  * Created by kehanyang on 15/6/26.
@@ -54,5 +55,10 @@ public class DatabaseManager {
 
     public boolean removeUser(String accountName) {
         return securityInformationManager.remove(accountName);
+    }
+
+    public static void main(String[] args) {
+        Logger logger= Logger.getLogger(DatabaseManager.class.getName());
+        logger.info("test");
     }
 }
