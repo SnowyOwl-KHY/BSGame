@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 @Controller
 public class HomeController {
 
-    @RequestMapping(value = {"/home", "/"})
+    @RequestMapping(value = {"/home"})
     public ModelAndView enterHome(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         LinkedList<Building> buildings = new LinkedList<Building>();
         buildings.add(new Building(BuildingType.BARRACKS, 0, 0));
