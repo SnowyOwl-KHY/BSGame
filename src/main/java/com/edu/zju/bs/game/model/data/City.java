@@ -39,7 +39,7 @@ public class City {
     public String getBuildings() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < buildings.size(); i++) {
-            result.append(buildings.get(i).getName());
+            result.append(buildings.get(i).getType().getName());
             result.append(":");
             result.append(buildings.get(i).getLevel());
             if (i < buildings.size() - 1) {
@@ -49,7 +49,7 @@ public class City {
         return result.toString();
     }
 
-    public List<Building> getBuildings(boolean real) {
+    public List<Building> getBuildingList() {
         return buildings;
     }
 
@@ -60,5 +60,9 @@ public class City {
             Building building = new Building(BuildingType.getType(strBuilding[0]), i, Integer.valueOf(strBuilding[1]));
             buildings.add(building);
         }
+    }
+
+    public void build(Building building) {
+        buildings.set(building.getId(), building);
     }
 }

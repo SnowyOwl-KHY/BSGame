@@ -7,25 +7,31 @@ import java.util.HashMap;
  */
 public enum BuildingType {
 
-    EMPTY("empty", 80, 160, 0, 0),
-    BARRACKS("barracks");
+    EMPTY("empty", 80, 160, 0, 0, "空地", "空地可以建造建筑。"),
+    BARRACKS("barracks", "兵营", "兵营可以生产士兵，用于进攻和防守。");
 
     String name;
     int height = 100;
     int width = 0;
     int topChange = -30;
     int leftChange = 20;
+    String title;
+    String desc;
 
-    BuildingType(String name) {
+    BuildingType(String name, String title, String desc) {
         this.name = name;
+        this.title = title;
+        this.desc = desc;
     }
 
-    BuildingType(String name, int height, int width, int topChange, int leftChange) {
+    BuildingType(String name, int height, int width, int topChange, int leftChange, String title, String desc) {
         this.name = name;
         this.height = height;
         this.width = width;
         this.topChange = topChange;
         this.leftChange = leftChange;
+        this.title = title;
+        this.desc = desc;
     }
 
     private static HashMap<String, BuildingType> types = new HashMap<String, BuildingType>();
@@ -37,6 +43,18 @@ public enum BuildingType {
 
     public static BuildingType getType(String name) {
         return types.get(name);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 
     @Override

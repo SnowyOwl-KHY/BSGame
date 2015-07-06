@@ -19,8 +19,8 @@
 
     <c:forEach items="${buildings}" var="building">
         <div style="position: absolute; top: ${building.top}px; left: ${building.left}px;">
-            <a href="/building/${building.id}">
-                <img src="/static/resource/city/${building.name}.png" height="${building.height}px" width="${building.width}px" />
+            <a href="/building?username=${username}&id=${building.id}">
+                <img src="/static/resource/city/${building.type.name}.png" height="${building.height}px" width="${building.width}px" />
             </a>
         </div>
     </c:forEach>

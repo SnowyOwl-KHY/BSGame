@@ -7,7 +7,7 @@ import com.edu.zju.bs.game.util.CoordinateCalculator;
  * Created by kehanyang on 15/7/6.
  */
 public class Building {
-    String name;
+    BuildingType type;
     String top;
     String left;
     String height;
@@ -26,7 +26,7 @@ public class Building {
     }
 
     public Building(BuildingType type, int x, int y, int level) {
-        this.name = type.name;
+        this.type = type;
         Coordinate coordinate = CoordinateCalculator.calculate(x, y);
         this.top = String.valueOf(coordinate.top + type.topChange);
         this.left = String.valueOf(coordinate.left + type.leftChange);
@@ -40,12 +40,12 @@ public class Building {
         this.level = level;
     }
 
-    public String getName() {
-        return name;
+    public BuildingType getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(BuildingType type) {
+        this.type = type;
     }
 
     public String getTop() {

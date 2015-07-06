@@ -1,5 +1,7 @@
 package com.edu.zju.bs.game.model.database;
 
+import com.edu.zju.bs.game.model.data.Building;
+import com.edu.zju.bs.game.model.data.BuildingType;
 import com.edu.zju.bs.game.model.data.City;
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -21,6 +23,8 @@ public class DataSolver {
     private CityTable cityTable;
 
     private static boolean initialFlag = false;
+
+    private static Logger logger= Logger.getLogger(DataSolver.class.getName());
 
     public DataSolver() {
         super();
@@ -68,8 +72,15 @@ public class DataSolver {
         return cityTable.getCity(username);
     }
 
+    public City updateBuilding(String username, BuildingType type, int id, int level) {
+        City city = getCity(username);
+        Building building = new Building(type, id, level);
+        city.build(building);
+        cityTable.update(city);
+        return city;
+    }
+
     public static void main(String[] args) {
-        Logger logger= Logger.getLogger(DataSolver.class.getName());
         logger.info("test");
     }
 }

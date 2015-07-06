@@ -3,16 +3,16 @@ package com.edu.zju.bs.game.controller;
 import com.edu.zju.bs.game.model.data.Building;
 import com.edu.zju.bs.game.model.data.BuildingType;
 import com.edu.zju.bs.game.model.data.City;
-import com.edu.zju.bs.game.model.database.CityTable;
 import com.edu.zju.bs.game.model.database.DataSolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,19 +30,58 @@ public class HomeController {
     public ModelAndView enterHome(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         String username = req.getParameter("username");
         City city = dataSolver.getCity(username);
-        List<Building> buildings = city.getBuildings(true);
+        List<Building> buildings = city.getBuildingList();
         ModelAndView mv = new ModelAndView();
         mv.addObject("buildings", buildings);
+        mv.addObject("username", username);
         mv.setViewName("home");
         return mv;
     }
 
-    @RequestMapping(value = {"/building/{id}"})
-    public ModelAndView build(HttpServletRequest req, HttpServletResponse resp, @PathVariable String identity) throws Exception {
-        int id = Integer.valueOf(identity);
+    @RequestMapping(value = {"/building"}, method = {RequestMethod.GET})
+    public ModelAndView building(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String username = req.getParameter("username");
+        String id = req.getParameter("id");
+        City city = dataSolver.getCity(username);
+        List<Building> buildings = city.getBuildingList();
+        ModelAndView mv;
+        Building building = buildings.get(Integer.valueOf(id));
+        if (building.getType() == BuildingType.EMPTY) {
+            mv = listBuilding();
+        } else {
+            mv = showBuilding(building.getType(), building.getLevel());
+        }
+        mv.addObject("id", id);
+        mv.addObject("username", username);
+        return mv;
+    }
+
+    private ModelAndView listBuilding() throws Exception {
         ModelAndView mv = new ModelAndView();
+        List<BuildingType> buildingList = new ArrayList<BuildingType>();
+        buildingList.add(BuildingType.BARRACKS);
+        mv.addObject("buildingList", buildingList);
+        mv.setViewName("buildingList");
+        return mv;
+    }
+
+    private ModelAndView showBuilding(BuildingType type, int level) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("type", type);
+        mv.addObject("level", level);
         mv.setViewName("building");
         return mv;
+    }
+
+    @RequestMapping(value = {"/building"}, method = {RequestMethod.POST})
+    public ModelAndView build(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String id = req.getParameter("id");
+        int bid = Integer.valueOf(id);
+        int level = Integer.valueOf(req.getParameter("level"));
+        BuildingType type = BuildingType.getType(req.getParameter("type"));
+        String username = req.getParameter("username");
+        dataSolver.updateBuilding(username, type, bid, level);
+        return enterHome(req, resp);
     }
 
 }

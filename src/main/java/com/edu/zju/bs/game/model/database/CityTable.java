@@ -44,4 +44,12 @@ public class CityTable {
             e.printStackTrace();
         }
     }
+
+    public void update(City city) {
+        try {
+            sqlMapClient.update("updateCityByUsername", city);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

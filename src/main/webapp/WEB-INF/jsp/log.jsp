@@ -9,8 +9,25 @@
 <html>
 <head>
     <title></title>
-    <script type="text/javascript" src="/static/js/util.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/util.css"/>
+    <script type="text/javascript" src="/static/js/util.js"></script>
+    <script>
+        function enterPress() {
+            if (event.keyCode == 13) {
+                <%
+                    if (request.getAttribute("action").equals("login")) {
+                %>
+                login();
+                <%
+                    } else {
+                %>
+                logup();
+                <%
+                    }
+                %>
+            }
+        }
+    </script>
 </head>
 <body style="background: url(/static/resource/login/login.jpg) no-repeat center; background-size: cover; text-align: center">
 <div class="Absolute-Center">
@@ -19,7 +36,7 @@
     <form action="/login" method="get" class="Absolute-Center">
         <p style="color: white">账号：<input type="text" id="username"/></p>
 
-        <p style="color: white">密码：<input type="password" id="password"/></p>
+        <p style="color: white">密码：<input type="password" id="password" onkeypress="enterPress()" /></p>
         <%
             if (request.getAttribute("action").equals("login")) {
         %>
@@ -28,7 +45,7 @@
         <%
             } else {
         %>
-        <p style="color: white">确认密码：<input type="password" id="passwordConfirm"/></p>
+        <p style="color: white">确认密码：<input type="password" id="passwordConfirm" onkeypress="enterPress()"/></p>
         <a onclick="logup()"><img src="/static/resource/login/confirm-button.png" width="100px"/></a>
         <a href="/login"><img src="/static/resource/login/back-button.png" width="100px"/></a>
         <%
@@ -49,6 +66,7 @@
     <%
         }
     %>
+    document.getElementById("username").focus();
 </script>
 
 </body>

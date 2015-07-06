@@ -53,8 +53,36 @@ function submit(username, password, action) {
     form.appendChild(usernameElement);
     form.appendChild(passwordElement);
     form.action = action;
-    form.setAttribute("username", username);
-    form.setAttribute("password", password);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}
+
+function build(username, type, id, level) {
+    var usernameElement = document.createElement("input");
+    usernameElement.setAttribute("name", "username");
+    usernameElement.setAttribute("type", "hidden");
+    usernameElement.value = username;
+    var typeElement = document.createElement("input");
+    typeElement.setAttribute("name", "type");
+    typeElement.setAttribute("type", "hidden");
+    typeElement.value = type;
+    var idElement = document.createElement("input");
+    idElement.setAttribute("name", "id");
+    idElement.setAttribute("type", "hidden");
+    idElement.value = id;
+    var levelElement = document.createElement("input");
+    levelElement.setAttribute("name", "level");
+    levelElement.setAttribute("type", "hidden");
+    levelElement.value = level;
+
+    var form = document.createElement("FORM");
+    form.method = "POST";
+    form.appendChild(usernameElement);
+    form.appendChild(typeElement);
+    form.appendChild(idElement);
+    form.appendChild(levelElement);
+    form.action = "/building";
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
