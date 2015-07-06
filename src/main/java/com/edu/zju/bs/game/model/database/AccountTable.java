@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Created by kehanyang on 15/6/26.
  */
-public class AccountManager {
+public class AccountTable {
 
     private SqlMapClient sqlMapClient;
 
-    public AccountManager(SqlMapClient sqlMapClient) {
+    public AccountTable(SqlMapClient sqlMapClient) {
         this.sqlMapClient = sqlMapClient;
     }
 

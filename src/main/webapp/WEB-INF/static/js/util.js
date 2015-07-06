@@ -12,9 +12,33 @@ function login() {
         alert("请输入密码");
         return false;
     }
-    submit(username, password);
+    submit(username, password, "login");
 }
-function submit(username, password) {
+
+function logup() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var passwordConfirm = document.getElementById("passwordConfirm").value;
+    if (username == "") {
+        alert("请输入账号");
+        return false;
+    }
+    if (password == "") {
+        alert("请输入密码");
+        return false;
+    }
+    if (passwordConfirm == "") {
+        alert("请确认密码");
+        return false;
+    }
+    if (password != passwordConfirm) {
+        alert("两次输入密码不一致");
+        return false;
+    }
+    submit(username, password, "logup");
+}
+
+function submit(username, password, action) {
     var usernameElement = document.createElement("input");
     usernameElement.setAttribute("name", "username");
     usernameElement.setAttribute("type", "hidden");
@@ -28,7 +52,7 @@ function submit(username, password) {
     form.method = "GET";
     form.appendChild(usernameElement);
     form.appendChild(passwordElement);
-    form.action = "login";
+    form.action = action;
     form.setAttribute("username", username);
     form.setAttribute("password", password);
     document.body.appendChild(form);

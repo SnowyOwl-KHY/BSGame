@@ -7,7 +7,7 @@ public class CoordinateCalculator {
 
     private static final int INIT_TOP = 200;
 
-    private static final int INIT_LEFT = 250;
+    private static final int INIT_LEFT = 400;
 
     private static final int TOP_SCALE = 50;
 

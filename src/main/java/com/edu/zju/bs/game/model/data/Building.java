@@ -13,10 +13,19 @@ public class Building {
     String height;
     String width;
     int id;
+    int level;
 
-    private static final int SIZE = 4;
+    static final int SIZE = 4;
 
-    public Building(BuildingType type, int x, int y) {
+    public Building(int id) {
+        this(BuildingType.EMPTY, id, 0);
+    }
+
+    public Building(BuildingType type, int id, int level) {
+        this(type, id % SIZE, id / SIZE, level);
+    }
+
+    public Building(BuildingType type, int x, int y, int level) {
         this.name = type.name;
         Coordinate coordinate = CoordinateCalculator.calculate(x, y);
         this.top = String.valueOf(coordinate.top + type.topChange);
@@ -28,6 +37,7 @@ public class Building {
             this.width = "";
         }
         this.id = y * SIZE + x;
+        this.level = level;
     }
 
     public String getName() {
@@ -76,5 +86,13 @@ public class Building {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
