@@ -16,7 +16,7 @@ public class Database {
 
     private SqlMapClient sqlMapClient;
 
-    private SecurityInformationManager securityInformationManager;
+    private AccountManager accountManager;
 
     private static boolean initialFlag = false;
 
@@ -26,35 +26,33 @@ public class Database {
             Reader reader = Resources.getResourceAsReader("mybatis/config.xml");
             sqlMapClient = SqlMapClientBuilder.buildSqlMapClient(reader);
             reader.close();
-            securityInformationManager = new SecurityInformationManager(sqlMapClient);
+            accountManager = new AccountManager(sqlMapClient);
             if (initialFlag == false) {
-                sqlMapClient.update("createSecurityInformation");
+                accountManager.initial();
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean existUser(String accountName) {
-        return securityInformationManager.existUser(accountName);
+    public boolean existUser(String username) {
+        return accountManager.existUser(username);
     }
 
-    public boolean checkPassword(String accountName, String passwordCipher) {
-        return securityInformationManager.checkPassword(accountName, passwordCipher);
+    public boolean checkPassword(String username, String passwordCipher) {
+        return accountManager.checkPassword(username, passwordCipher);
     }
 
-    public boolean addUser(String accountName, String passwordCipher) {
-        return securityInformationManager.add(accountName, passwordCipher);
+    public void addUser(String username, String passwordCipher) {
+        accountManager.add(username, passwordCipher);
     }
 
-    public boolean changePassword(String accountName, String passwordCipher) {
-        return securityInformationManager.changePassword(accountName, passwordCipher);
+    public void changePassword(String username, String passwordCipher) {
+        accountManager.changePassword(username, passwordCipher);
     }
 
-    public boolean removeUser(String accountName) {
-        return securityInformationManager.remove(accountName);
+    public void removeUser(String username) {
+        accountManager.remove(username);
     }
 
     public static void main(String[] args) {

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap>
+    <typeAlias alias="Account"
+               type="com.edu.zju.bs.game.model.data.Account"/>
+
+    <resultMap id="account.rm" class="Account">
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+    </resultMap>
+
+    <statement id="createAccount">
+        CREATE TABLE IF NOT EXISTS account
+        (username VARCHAR(32) PRIMARY KEY, password CHAR(32) NOT NULL)
+    </statement>
+
+    <select id="selectAccount" parameterClass="Account" resultMap="account.rm">
+        SELECT * FROM account
+        WHERE username LIKE #username#
+        AND password LIKE #password#
+    </select>
+
+    <insert id="insertAccount" parameterClass="Account">
+        INSERT INTO account
+        VALUES (#username#, #password#)
+    </insert>
+
+    <update id="updatePassword" parameterClass="Account">
+        UPDATE account
+        SET password = #password#
+        WHERE username = #username#
+    </update>
+
+    <delete id="deleteAccount">
+        DELETE FROM account
+        WHERE username = #username#
+    </delete>
+
+</sqlMap>

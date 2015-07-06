@@ -15,12 +15,12 @@
 <body>
 <div>
 
-    <img src="/static/resource/cityBackground.jpg" width="1000px" />
+    <img src="/static/resource/city/cityBackground.jpg" width="1000px" />
 
     <c:forEach items="${buildings}" var="building">
         <div style="position: absolute; top: ${building.top}px; left: ${building.left}px;">
             <a href="/building/${building.id}">
-                <img src="/static/resource/buildings/${building.name}.png" height="${building.height}px" width="${building.width}px" />
+                <img src="/static/resource/city/${building.name}.png" height="${building.height}px" width="${building.width}px" />
             </a>
         </div>
     </c:forEach>

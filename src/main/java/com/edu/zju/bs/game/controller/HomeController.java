@@ -18,8 +18,11 @@ import java.util.logging.Logger;
 @Controller
 public class HomeController {
 
+    Logger logger = Logger.getLogger(this.getClass().getName());
+
     @RequestMapping(value = {"/home"})
     public ModelAndView enterHome(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String username = req.getParameter("username");
         LinkedList<Building> buildings = new LinkedList<Building>();
         buildings.add(new Building(BuildingType.BARRACKS, 0, 0));
         buildings.add(new Building(BuildingType.BARRACKS, 0, 1));

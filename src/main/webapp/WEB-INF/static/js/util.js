@@ -29,6 +29,8 @@ function submit(username, password) {
     form.appendChild(usernameElement);
     form.appendChild(passwordElement);
     form.action = "login";
+    form.setAttribute("username", username);
+    form.setAttribute("password", password);
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
