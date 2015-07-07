@@ -1,8 +1,6 @@
 package com.edu.zju.bs.game.controller;
 
-import com.edu.zju.bs.game.model.data.Building;
-import com.edu.zju.bs.game.model.data.BuildingType;
-import com.edu.zju.bs.game.model.data.City;
+import com.edu.zju.bs.game.model.data.*;
 import com.edu.zju.bs.game.model.database.DataSolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,7 +47,7 @@ public class HomeController {
         if (building.getType() == BuildingType.EMPTY) {
             mv = listBuilding();
         } else {
-            mv = showBuilding(building.getType(), building.getLevel());
+            mv = showBuilding(building.getType(), building.getLevel(), req);
         }
         mv.addObject("id", id);
         mv.addObject("username", username);
@@ -65,10 +63,12 @@ public class HomeController {
         return mv;
     }
 
-    private ModelAndView showBuilding(BuildingType type, int level) {
+    private ModelAndView showBuilding(BuildingType type, int level, HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("type", type);
         mv.addObject("level", level);
+        req.setAttribute("buildingType", BuildingType.BARRACKS.getName());
+        mv.addObject("soldierTypes", SoldierType.values());
         mv.setViewName("building");
         return mv;
     }

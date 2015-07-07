@@ -87,3 +87,28 @@ function build(username, type, id, level) {
     form.submit();
     document.body.removeChild(form);
 }
+
+function train(username, soldierType, soldierNumber) {
+    var usernameElement = document.createElement("input");
+    usernameElement.setAttribute("name", "username");
+    usernameElement.setAttribute("type", "hidden");
+    usernameElement.value = username;
+    var soldierTypeElement = document.createElement("input");
+    soldierTypeElement.setAttribute("name", "soldierType");
+    soldierTypeElement.setAttribute("type", "hidden");
+    soldierTypeElement.value = soldierType;
+    var soldierNumberElement = document.createElement("input");
+    soldierNumberElement.setAttribute("name", "soldierNumber");
+    soldierNumberElement.setAttribute("type", "hidden");
+    soldierNumberElement.value = soldierNumber;
+
+    var form = document.createElement("FORM");
+    form.method = "POST";
+    form.appendChild(usernameElement);
+    form.appendChild(soldierTypeElement);
+    form.appendChild(soldierNumberElement);
+    form.action = "/train";
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}
