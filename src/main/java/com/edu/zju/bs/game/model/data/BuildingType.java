@@ -7,8 +7,8 @@ import java.util.HashMap;
  */
 public enum BuildingType {
 
-    EMPTY("empty", 80, 160, 0, 0, "空地", "空地可以建造建筑。"),
-    BARRACKS("barracks", "兵营", "兵营可以生产士兵，用于进攻和防守。");
+    EMPTY("empty", 80, 160, 0, 0, "空地", "空地可以建造建筑。", 0),
+    BARRACKS("barracks", "兵营", "兵营可以生产士兵，用于进攻和防守。", 100);
 
     String name;
     int height = 100;
@@ -17,14 +17,16 @@ public enum BuildingType {
     int leftChange = 20;
     String title;
     String desc;
+    int cost;
 
-    BuildingType(String name, String title, String desc) {
+    BuildingType(String name, String title, String desc, int cost) {
         this.name = name;
         this.title = title;
         this.desc = desc;
+        this.cost = cost;
     }
 
-    BuildingType(String name, int height, int width, int topChange, int leftChange, String title, String desc) {
+    BuildingType(String name, int height, int width, int topChange, int leftChange, String title, String desc, int cost) {
         this.name = name;
         this.height = height;
         this.width = width;
@@ -32,6 +34,7 @@ public enum BuildingType {
         this.leftChange = leftChange;
         this.title = title;
         this.desc = desc;
+        this.cost = cost;
     }
 
     private static HashMap<String, BuildingType> types = new HashMap<String, BuildingType>();
@@ -55,6 +58,10 @@ public enum BuildingType {
 
     public String getDesc() {
         return desc;
+    }
+
+    public int getCost() {
+        return cost;
     }
 
     @Override

@@ -80,7 +80,14 @@ public class DataSolver {
         return city;
     }
 
+    public City increaseResource(String username, int index, int number) {
+        City city = getCity(username);
+        city.increaseResources(index, number);
+        cityTable.update(city);
+        return city;
+    }
+
     public static void main(String[] args) {
-        logger.info("test");
+        DataSolver test = new DataSolver();
     }
 }
