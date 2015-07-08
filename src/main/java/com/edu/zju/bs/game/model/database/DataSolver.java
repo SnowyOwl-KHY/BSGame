@@ -89,5 +89,6 @@ public class DataSolver {
 
     public static void main(String[] args) {
         DataSolver test = new DataSolver();
+        test.increaseResource("test", 0, 100);
     }
 }
