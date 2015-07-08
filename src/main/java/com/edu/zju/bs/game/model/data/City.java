@@ -1,6 +1,8 @@
 package com.edu.zju.bs.game.model.data;
 
 
+import com.edu.zju.bs.game.exception.ResourceNotEnoughException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,8 @@ import java.util.List;
  * Created by kehanyang on 15/7/6.
  */
 public class City {
+
+    int id;
 
     String username;
 
@@ -36,8 +40,20 @@ public class City {
         setResources(resourcesInfo);
     }
 
-    public void  increaseResources(int index, int number) {
+    public void increaseResource(int index, int number) throws ResourceNotEnoughException {
         resources.increase(index, number);
+    }
+
+    public void increaseSoldier(int index, int number) {
+        army.increase(index, number);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -98,7 +114,7 @@ public class City {
         }
     }
 
-    public void build(Building building) {
+    public void updateBuilding(Building building) {
         buildings.set(building.getId(), building);
     }
 }

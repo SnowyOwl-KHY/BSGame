@@ -17,4 +17,5 @@
     <!-- 这里可以写多个实体的映射文件 -->
     <sqlMap resource="mybatis/mapping/account.xml"/>
     <sqlMap resource="mybatis/mapping/city.xml"/>
+    <sqlMap resource="mybatis/mapping/plat.xml"/>
 </sqlMapConfig>

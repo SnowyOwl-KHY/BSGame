@@ -17,6 +17,10 @@ public class Soldier {
         this.number = number;
     }
 
+    public void increase(int number) {
+        this.number += number;
+    }
+
     public SoldierType getType() {
         return type;
     }

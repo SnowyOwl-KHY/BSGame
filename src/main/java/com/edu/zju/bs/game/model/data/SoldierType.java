@@ -1,5 +1,10 @@
 package com.edu.zju.bs.game.model.data;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by kehanyang on 15/7/7.
  */
@@ -18,6 +23,22 @@ public enum SoldierType {
     String desc;
     int level;
     int cost;
+
+    private static Map<String, Integer> typeIndex = new HashMap<String, Integer>();
+
+    private static List<SoldierType> types = new ArrayList<SoldierType>();
+
+    static {
+        SoldierType[] soldierTypes = SoldierType.values();
+        for (int i = 0; i < soldierTypes.length; i++) {
+            typeIndex.put(soldierTypes[i].getName(), i);
+            types.add(soldierTypes[i]);
+        }
+    }
+
+    public static int getIndex(String typeName) {
+        return typeIndex.get(typeName);
+    }
 
     SoldierType(String name, int health, int attack, int left, String title, int level, int cost) {
         this.name = name;

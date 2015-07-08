@@ -58,7 +58,7 @@ function submit(username, password, action) {
     document.body.removeChild(form);
 }
 
-function build(username, type, id, level) {
+function buildStructure(username, type, id, level) {
     var usernameElement = document.createElement("input");
     usernameElement.setAttribute("name", "username");
     usernameElement.setAttribute("type", "hidden");
@@ -88,7 +88,9 @@ function build(username, type, id, level) {
     document.body.removeChild(form);
 }
 
-function trainSoldier(username, soldierType, soldierNumber, presentGold, cost) {
+function trainSoldier(username, soldierType, soldierInputId, presentGold, cost) {
+
+    var soldierNumber = document.getElementById(soldierInputId).value;
 
     if (cost * soldierNumber > presentGold) {
         alert("金币不足");

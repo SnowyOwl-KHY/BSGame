@@ -1,5 +1,7 @@
 package com.edu.zju.bs.game.model.data;
 
+import com.edu.zju.bs.game.exception.ResourceNotEnoughException;
+
 /**
  * Created by kehanyang on 15/7/8.
  */
@@ -17,7 +19,10 @@ public class Resource {
         this.number = number;
     }
 
-    public void increase(int number) {
+    public void increase(int number) throws ResourceNotEnoughException {
+        if (this.number + number < 0) {
+            throw new ResourceNotEnoughException("You need more " + type.getName());
+        }
         this.number += number;
     }
 

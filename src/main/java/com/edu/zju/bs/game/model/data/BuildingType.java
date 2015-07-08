@@ -8,7 +8,7 @@ import java.util.HashMap;
 public enum BuildingType {
 
     EMPTY("empty", 80, 160, 0, 0, "空地", "空地可以建造建筑。", 0),
-    BARRACKS("barracks", "兵营", "兵营可以生产士兵，用于进攻和防守。", 100);
+    BARRACKS("barracks", "兵营", "兵营可以生产士兵，用于进攻和防守。", 200);
 
     String name;
     int height = 100;

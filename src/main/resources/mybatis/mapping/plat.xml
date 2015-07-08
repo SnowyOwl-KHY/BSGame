@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap>
+    <typeAlias alias="Site"
+               type="com.edu.zju.bs.game.model.data.Site"/>
+    <typeAlias alias="PlatCoordinateRange"
+               type="com.edu.zju.bs.game.util.PlatCoordinateRange"/>
+
+    <resultMap id="site.rm" class="Site">
+        <result property="x" column="x"/>
+        <result property="y" column="y"/>
+        <result property="siteType" column="site_type"/>
+        <result property="army" column="army"/>
+        <result property="resources" column="resources"/>
+        <result property="cityId" column="city_id"/>
+    </resultMap>
+
+    <statement id="createPlat">
+        CREATE TABLE IF NOT EXISTS plat(
+        x INT NOT NULL,
+        y INT NOT NULL,
+        site_type VARCHAR(32) NOT NULL,
+        army VARCHAR(512),
+        resources VARCHAR(128),
+        city_id INT,
+        PRIMARY KEY (x, y)
+        )
+    </statement>
+    
+    <select id="selectSiteByPlatCoordinateRange" parameterClass="PlatCoordinateRange" resultMap="site.rm">
+        SELECT * FROM plat
+        WHERE x >= #left# AND x &lt; #right# AND y >= #top# AND y &lt; #bottom#
+    </select>
+
+    <select id="selectSiteByPlayerCityId" parameterClass="Integer" resultMap="site.rm">
+        SELECT * FROM plat
+        WHERE city_id = #playerCityId# AND site_type = "playerCity"
+    </select>
+
+    <insert id="insertSite">
+        INSERT INTO plat VALUES(#x#, #y#, #siteType#, #army#, #resources#, #cityId#)
+    </insert>
+
+    <insert id="updatePlatBySite" parameterClass="Site">
+        UPDATE plat
+        SET site_type = #siteType#, army = #army#, resources = #resources#, city_id = #cityId#
+        WHERE x = #x# AND y = #y#
+    </insert>
+
+</sqlMap>

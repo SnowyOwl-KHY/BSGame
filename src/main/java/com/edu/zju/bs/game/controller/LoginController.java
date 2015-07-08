@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
@@ -19,7 +21,7 @@ public class LoginController {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     @RequestMapping(value = {"/login", "/", "logup"})
-    public ModelAndView log(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ModelAndView log(HttpServletRequest req, HttpServletResponse resp) {
         DataSolver dataSolver = new DataSolver();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
@@ -41,7 +43,13 @@ public class LoginController {
             mv.setViewName("log");
         } else {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/home");
-            dispatcher.forward(req, resp);
+            try {
+                dispatcher.forward(req, resp);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return mv;
     }

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>登陆</title>
     <link rel="stylesheet" type="text/css" href="/static/css/util.css"/>
     <script type="text/javascript" src="/static/js/util.js"></script>
     <script>

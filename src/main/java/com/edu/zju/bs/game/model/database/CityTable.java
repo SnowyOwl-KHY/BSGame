@@ -37,12 +37,15 @@ public class CityTable {
         return null;
     }
 
-    public void add(City city) {
+    public int add(City city) {
         try {
             sqlMapClient.insert("insertCity", city);
+            city = getCity(city.getUsername());
+            return city.getId();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
     public void update(City city) {

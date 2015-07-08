@@ -27,7 +27,7 @@ public class Building {
 
     public Building(BuildingType type, int x, int y, int level) {
         this.type = type;
-        Coordinate coordinate = CoordinateCalculator.calculate(x, y);
+        Coordinate coordinate = CoordinateCalculator.cityCalculate(x, y);
         this.top = String.valueOf(coordinate.top + type.topChange);
         this.left = String.valueOf(coordinate.left + type.leftChange);
         this.height = String.valueOf(type.height);

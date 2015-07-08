@@ -1,5 +1,7 @@
 package com.edu.zju.bs.game.model.data;
 
+import com.edu.zju.bs.game.exception.ResourceNotEnoughException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class Resources {
         }
     }
 
-    public void increase(int index, int number) {
+    public void increase(int index, int number) throws ResourceNotEnoughException {
         Resource resource = resourceList.get(index);
         resource.increase(number);
     }
@@ -62,10 +64,5 @@ public class Resources {
             }
         }
         return result.toString();
-    }
-
-    public static void main(String[] args) {
-        Resources test = new Resources();
-        System.out.println(test.toString());
     }
 }

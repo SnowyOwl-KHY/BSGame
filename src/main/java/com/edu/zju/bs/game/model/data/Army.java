@@ -19,6 +19,11 @@ public class Army {
         setSoldiers(numbers);
     }
 
+    public void increase(int index, int number) {
+        Soldier soldier = soldiers.get(index);
+        soldier.increase(number);
+    }
+
     private void setSoldiers(int[] numbers) {
         int i = 0;
         for (; i < numbers.length && i < soldierTypes.length; i++) {

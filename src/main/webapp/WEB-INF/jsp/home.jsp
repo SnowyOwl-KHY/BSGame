@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>城内</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
@@ -38,6 +38,12 @@
             </a>
         </div>
     </c:forEach>
+
+    <div style="position: absolute; top: 700px; left: 880px">
+        <a href="/plat?username=${username}">
+            <img src="/static/resource/city/plat.png" width="100px" />
+        </a>
+    </div>
 
 </div>
 </body>

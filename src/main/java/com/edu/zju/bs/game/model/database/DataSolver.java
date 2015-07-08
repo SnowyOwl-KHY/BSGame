@@ -1,8 +1,8 @@
 package com.edu.zju.bs.game.model.database;
 
-import com.edu.zju.bs.game.model.data.Building;
-import com.edu.zju.bs.game.model.data.BuildingType;
-import com.edu.zju.bs.game.model.data.City;
+import com.edu.zju.bs.game.exception.ResourceNotEnoughException;
+import com.edu.zju.bs.game.model.data.*;
+import com.edu.zju.bs.game.util.PlatCoordinateRange;
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
@@ -22,9 +22,11 @@ public class DataSolver {
 
     private CityTable cityTable;
 
-    private static boolean initialFlag = false;
+    private PlatTable platTable;
 
-    private static Logger logger= Logger.getLogger(DataSolver.class.getName());
+    private static Boolean initialFlag = false;
+
+    private static Logger logger = Logger.getLogger(DataSolver.class.getName());
 
     public DataSolver() {
         super();
@@ -34,9 +36,11 @@ public class DataSolver {
             reader.close();
             accountTable = new AccountTable(sqlMapClient);
             cityTable = new CityTable(sqlMapClient);
+            platTable = new PlatTable(sqlMapClient);
             if (initialFlag == false) {
                 accountTable.initial();
                 cityTable.initial();
+                platTable.initial();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,7 +60,15 @@ public class DataSolver {
             return false;
         }
         accountTable.add(username, passwordCipher);
-        cityTable.add(new City(username));
+        City city = new City(username);
+        city.setResources("200,200");
+        int id = cityTable.add(city);
+        int x = (int) (PlatCoordinateRange.MAX_RANGE * Math.random());
+        int y = (int) (PlatCoordinateRange.MAX_RANGE * Math.random());
+        Site site = new Site(x, y);
+        site.setSiteType("playerCity");
+        site.setCityId(id);
+        platTable.update(site);
         return true;
     }
 
@@ -74,21 +86,52 @@ public class DataSolver {
 
     public City updateBuilding(String username, BuildingType type, int id, int level) {
         City city = getCity(username);
+        int oldLevel = city.getBuildingList().get(id).getLevel();
+        city = increaseResource(username, 1, -(level - oldLevel) * type.getCost());
+        if (city == null) {
+            return null;
+        }
         Building building = new Building(type, id, level);
-        city.build(building);
+        city.updateBuilding(building);
         cityTable.update(city);
         return city;
     }
 
     public City increaseResource(String username, int index, int number) {
         City city = getCity(username);
-        city.increaseResources(index, number);
+        try {
+            city.increaseResource(index, number);
+        } catch (ResourceNotEnoughException e) {
+            e.printStackTrace(System.out);
+            return null;
+        }
         cityTable.update(city);
         return city;
     }
 
+    public City trainSoldiers(String username, int index, int number) {
+        SoldierType type = SoldierType.values()[index];
+        City city = increaseResource(username, 0, -number * type.getCost());
+        if (city == null) {
+            return null;
+        }
+        city.increaseSoldier(index, number);
+        cityTable.update(city);
+        return city;
+    }
+
+    public Plat getPlat(int centerX, int centerY) {
+        PlatCoordinateRange platCoordinateRange = new PlatCoordinateRange(centerX, centerY);
+        return platTable.getPlat(platCoordinateRange);
+    }
+
+    public Site getSite(String username) {
+        City city = getCity(username);
+        return platTable.getSite(city.getId());
+    }
+
     public static void main(String[] args) {
         DataSolver test = new DataSolver();
-        test.increaseResource("test", 0, 100);
+        test.addUser("test2", "123");
     }
 }

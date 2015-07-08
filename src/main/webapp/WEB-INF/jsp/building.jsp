@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>兵营</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="/static/js/util.js"></script>
 </head>
@@ -36,7 +36,7 @@
         <td align="center">${type.desc}</td>
         <td align="center">
             <img src="/static/resource/city/levelup.png" width="100px"
-                 onclick="build(username, type, buildingId, level+1)"/>
+                 onclick="buildStructure(username, type, buildingId, level+1)"/>
         </td>
     </tr>
 
@@ -62,18 +62,18 @@
             </td>
             <td align="center">
                 <script>
-                    var soldierNumber = document.getElementById("${soldierType.name}Number").value;
-                    var soldierType = "${soldierType.name}";
-                    var cost = ${soldierType.cost}
+                    var ${soldierType.name}InputId = "${soldierType.name}Number";
+                    var ${soldierType.name}Type = "${soldierType.name}";
+                    var ${soldierType.name}Cost = ${soldierType.cost}
                 </script>
                 <div id="${soldierType.name}Train">
                     <img src="/static/resource/soldier/train-button.png" width="100px"
-                         onclick="trainSoldier(username, soldierType, soldierNumber, presentGold, cost)"/>
+                         onclick="trainSoldier(username, ${soldierType.name}Type, ${soldierType.name}InputId, presentGold, ${soldierType.name}Cost)"/>
                 </div>
                 <script>
                     var train = document.getElementById("${soldierType.name}Train");
                     if (level < ${soldierType.level}) {
-                        train.innerHTML = "<p style=\"color: red;\">需要${soldierType.level}级兵营</p>"
+                        train.innerHTML = "<p style=\"color: red;\">需要${soldierType.level}级兵营</p>";
                     }
                 </script>
             </td>
