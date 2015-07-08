@@ -7,23 +7,29 @@
     <resultMap id="city.rm" class="City">
         <result property="username" column="username"/>
         <result property="buildings" column="buildings"/>
+        <result property="army" column="army"/>
+        <result property="resources" column="resources"/>
     </resultMap>
 
     <statement id="createCity">
         CREATE TABLE IF NOT EXISTS city
-        (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(32) NOT NULL, buildings VARCHAR(512) NOT NULL)
+        (id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(32) NOT NULL,
+        buildings VARCHAR(512) NOT NULL,
+        army VARCHAR(128) NOT NULL,
+        resources VARCHAR (128) NOT NULL)
     </statement>
 
     <select id="selectCityByUsername" resultMap="city.rm">
-        SELECT username, buildings FROM city WHERE username = #username#
+        SELECT * FROM city WHERE username = #username#
     </select>
 
     <insert id="insertCity" parameterClass="City">
-        INSERT INTO city(username, buildings) VALUES(#username#, #buildings#)
+        INSERT INTO city(username, buildings, army, resources) VALUES(#username#, #buildings#, #army#, #resources#)
     </insert>
 
     <update id="updateCityByUsername" parameterClass="City">
-        UPDATE city SET buildings = #buildings# WHERE username = #username#
+        UPDATE city SET buildings = #buildings#, army = #army#, resources = #resources# WHERE username = #username#
     </update>
 
     <delete id="deleteCiryByUsername">

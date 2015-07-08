@@ -7,42 +7,55 @@ import java.util.*;
  */
 public class Army {
 
-    Map<SoldierType, Integer> soldierNumber = new HashMap<SoldierType, Integer>();
+    static final SoldierType[] soldierTypes = SoldierType.values();
 
-    static SoldierType[] soldierTypes = SoldierType.values();
+    List<Soldier> soldiers = new ArrayList<Soldier>(soldierTypes.length);
 
     public Army() {
+        for (int i = 0; i < soldierTypes.length; i++) {
+            soldiers.add(null);
+        }
         int[] numbers = new int[soldierTypes.length];
-        init(numbers);
+        setSoldiers(numbers);
     }
 
-    public Army(int[] numbers) {
-        init(numbers);
+    private void setSoldiers(int[] numbers) {
+        int i = 0;
+        for (; i < numbers.length && i < soldierTypes.length; i++) {
+            soldiers.set(i, new Soldier(soldierTypes[i], numbers[i]));
+        }
+        for (; i < soldierTypes.length; i++) {
+            soldiers.set(i, new Soldier(soldierTypes[i]));
+        }
     }
 
-    public Army(String numberInfo) {
-        String[] temp = numberInfo.split(",");
+    public String getSoldiers() {
+        return toString();
+    }
+
+    public void setSoldiers(String soldierInfo) {
+        String[] temp = soldierInfo.split(",");
         int[] numbers = new int[temp.length];
         for (int i = 0; i < numbers.length; i++) {
             numbers[i] = Integer.valueOf(temp[i]);
         }
-        init(numbers);
+        setSoldiers(numbers);
     }
 
-    private void init(int[] numbers) {
-        int i = 0;
-        for (; i < numbers.length && i < soldierTypes.length; i++) {
-            soldierNumber.put(soldierTypes[i], numbers[i]);
-        }
-        for (; i < soldierTypes.length; i++) {
-            soldierNumber.put(soldierTypes[i], 0);
-        }
+    public List<Soldier> getSoldierList() {
+        return soldiers;
     }
 
     @Override
     public String toString() {
-        Collection<Integer> soldiers = soldierNumber.values();
-        return soldiers.toString();
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < soldiers.size(); i++) {
+            result.append(soldiers.get(i).getNumber());
+            if (i < soldiers.size() - 1) {
+                result.append(",");
+            }
+        }
+        return result.toString();
     }
 
 }

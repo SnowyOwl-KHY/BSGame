@@ -32,6 +32,8 @@ public class HomeController {
         ModelAndView mv = new ModelAndView();
         mv.addObject("buildings", buildings);
         mv.addObject("username", username);
+        mv.addObject("soldiers", city.getSoldierList());
+        mv.addObject("resources", city.getResourceList());
         mv.setViewName("home");
         return mv;
     }
@@ -47,7 +49,7 @@ public class HomeController {
         if (building.getType() == BuildingType.EMPTY) {
             mv = listBuilding();
         } else {
-            mv = showBuilding(building.getType(), building.getLevel(), req);
+            mv = showBuilding(building.getType(), building.getLevel(), req, city);
         }
         mv.addObject("id", id);
         mv.addObject("username", username);
@@ -63,12 +65,13 @@ public class HomeController {
         return mv;
     }
 
-    private ModelAndView showBuilding(BuildingType type, int level, HttpServletRequest req) {
+    private ModelAndView showBuilding(BuildingType type, int level, HttpServletRequest req, City city) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("type", type);
         mv.addObject("level", level);
         req.setAttribute("buildingType", BuildingType.BARRACKS.getName());
         mv.addObject("soldierTypes", SoldierType.values());
+        mv.addObject("presentGold", city.getResourceList().get(0).getNumber());
         mv.setViewName("building");
         return mv;
     }
@@ -83,5 +86,4 @@ public class HomeController {
         dataSolver.updateBuilding(username, type, bid, level);
         return enterHome(req, resp);
     }
-
 }

@@ -20,6 +20,7 @@
     var type = "${type.name}";
     var buildingId = ${id};
     var level = ${level};
+    var presentGold = ${presentGold};
 </script>
 
 <table border="1">
@@ -61,12 +62,13 @@
             </td>
             <td align="center">
                 <script>
-                    var soldierNumber = document.getElementById("${soldierType.name}Number");
+                    var soldierNumber = document.getElementById("${soldierType.name}Number").value;
                     var soldierType = "${soldierType.name}";
+                    var cost = ${soldierType.cost}
                 </script>
                 <div id="${soldierType.name}Train">
                     <img src="/static/resource/soldier/train-button.png" width="100px"
-                         onclick="train(username, soldierType, soldierNumber)"/>
+                         onclick="trainSoldier(username, soldierType, soldierNumber, presentGold, cost)"/>
                 </div>
                 <script>
                     var train = document.getElementById("${soldierType.name}Train");

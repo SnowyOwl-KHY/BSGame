@@ -17,6 +17,20 @@
 
     <img src="/static/resource/city/cityBackground.jpg" width="1000px" />
 
+    <c:forEach items="${soldiers}" var="soldier">
+        <div style="position: absolute; top: 20px; left: ${soldier.type.left};">
+            <img src="/static/resource/soldier/${soldier.type.name}.png" width="30px" />
+            <p align="center" style="color: white;">${soldier.number}</p>
+        </div>
+    </c:forEach>
+
+    <c:forEach items="${resources}" var="resource">
+        <div style="position: absolute; top: 680px; left: ${resource.type.left};">
+            <img src="/static/resource/resource/${resource.type.name}.png" width="30px" />
+            <p align="center" style="color: white;">${resource.number}</p>
+        </div>
+    </c:forEach>
+
     <c:forEach items="${buildings}" var="building">
         <div style="position: absolute; top: ${building.top}px; left: ${building.left}px;">
             <a href="/building?username=${username}&id=${building.id}">

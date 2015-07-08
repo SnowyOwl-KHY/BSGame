@@ -88,7 +88,13 @@ function build(username, type, id, level) {
     document.body.removeChild(form);
 }
 
-function train(username, soldierType, soldierNumber) {
+function trainSoldier(username, soldierType, soldierNumber, presentGold, cost) {
+
+    if (cost * soldierNumber > presentGold) {
+        alert("金币不足");
+        return;
+    }
+
     var usernameElement = document.createElement("input");
     usernameElement.setAttribute("name", "username");
     usernameElement.setAttribute("type", "hidden");
