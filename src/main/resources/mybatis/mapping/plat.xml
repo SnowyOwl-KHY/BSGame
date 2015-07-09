@@ -32,7 +32,12 @@
         WHERE x >= #left# AND x &lt; #right# AND y >= #top# AND y &lt; #bottom#
     </select>
 
-    <select id="selectSiteByPlayerCityId" parameterClass="Integer" resultMap="site.rm">
+    <select id="selectSiteByCoordinate" parameterClass="Site" resultMap="site.rm">
+        SELECT * FROM plat
+        WHERE x = #x# AND y = #y#
+    </select>
+
+    <select id="selectSiteByPlayerCityId" parameterClass="int" resultMap="site.rm">
         SELECT * FROM plat
         WHERE city_id = #playerCityId# AND site_type = "playerCity"
     </select>

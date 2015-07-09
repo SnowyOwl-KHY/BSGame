@@ -45,6 +45,7 @@ public class LoginController {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/home");
             try {
                 dispatcher.forward(req, resp);
+                return null;
             } catch (ServletException e) {
                 e.printStackTrace();
             } catch (IOException e) {

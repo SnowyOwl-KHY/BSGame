@@ -19,6 +19,15 @@ public class Army {
         setSoldiers(numbers);
     }
 
+    public Army(String soldiersInfo) {
+        this();
+        setSoldiers(soldiersInfo);
+    }
+
+    public Army(List<Soldier> soldiers) {
+        this.soldiers = soldiers;
+    }
+
     public void increase(int index, int number) {
         Soldier soldier = soldiers.get(index);
         soldier.increase(number);

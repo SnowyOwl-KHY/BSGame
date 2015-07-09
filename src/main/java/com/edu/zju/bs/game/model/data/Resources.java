@@ -22,6 +22,11 @@ public class Resources {
         setResources(numbers);
     }
 
+    public Resources(String resourcesInfo) {
+        this();
+        setResources(resourcesInfo);
+    }
+
     private void setResources(int[] numbers) {
         int i = 0;
         for (; i < numbers.length && i < resourceTypes.length; i++) {
@@ -41,8 +46,8 @@ public class Resources {
         return toString();
     }
 
-    public void setResources(String resourceInfo) {
-        String[] temp = resourceInfo.split(",");
+    public void setResources(String resourcesInfo) {
+        String[] temp = resourcesInfo.split(",");
         int[] numbers = new int[resourceTypes.length];
         for (int i = 0; i < numbers.length; i++) {
             numbers[i] = Integer.valueOf(temp[i]);

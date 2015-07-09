@@ -32,6 +32,13 @@ public class City {
         this.username = username;
     }
 
+    public City(String username, String armyInfo, String resourcesInfo) {
+        this();
+        this.username = username;
+        setArmy(armyInfo);
+        setResources(resourcesInfo);
+    }
+
     public City(String username, String buildingsInfo, String armyInfo, String resourcesInfo) {
         this();
         this.username = username;
@@ -83,6 +90,10 @@ public class City {
 
     public void setArmy(String armyInfo) {
         army.setSoldiers(armyInfo);
+    }
+
+    public void setArmy(Army army) {
+        this.army = army;
     }
 
     public List<Soldier> getSoldierList() {

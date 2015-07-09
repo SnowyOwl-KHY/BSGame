@@ -61,7 +61,7 @@ public class DataSolver {
         }
         accountTable.add(username, passwordCipher);
         City city = new City(username);
-        city.setResources("200,200");
+        city.setResources("1000,400");
         int id = cityTable.add(city);
         int x = (int) (PlatCoordinateRange.MAX_RANGE * Math.random());
         int y = (int) (PlatCoordinateRange.MAX_RANGE * Math.random());
@@ -82,6 +82,15 @@ public class DataSolver {
 
     public City getCity(String username) {
         return cityTable.getCity(username);
+    }
+
+    public City getCity(int id) {
+        return cityTable.getCity(id);
+    }
+
+    public Site getSite(int x, int y) {
+        return platTable.getSite(x, y);
+
     }
 
     public City updateBuilding(String username, BuildingType type, int id, int level) {
@@ -128,6 +137,14 @@ public class DataSolver {
     public Site getSite(String username) {
         City city = getCity(username);
         return platTable.getSite(city.getId());
+    }
+
+    public void updateCity(City city) {
+        cityTable.update(city);
+    }
+
+    public void updateSite(Site site) {
+        platTable.update(site);
     }
 
     public static void main(String[] args) {

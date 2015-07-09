@@ -1,8 +1,6 @@
 package com.edu.zju.bs.game.model.database;
 
-import com.edu.zju.bs.game.model.data.City;
-import com.edu.zju.bs.game.model.data.Plat;
-import com.edu.zju.bs.game.model.data.Site;
+import com.edu.zju.bs.game.model.data.*;
 import com.edu.zju.bs.game.util.PlatCoordinateRange;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -32,8 +30,24 @@ public class PlatTable {
                         double r = Math.random();
                         if (r < 0.15) {
                             site.setSiteType("npcCity");
-                            site.setArmy("5, 3, 2, 1");
-                            site.setResources("200, 100");
+                            SoldierType[] soldierTypes = SoldierType.values();
+                            StringBuilder temp = new StringBuilder();
+                            for (int i = 0; i < soldierTypes.length; i++) {
+                                temp.append((int)((soldierTypes[soldierTypes.length - 1].getHealth() * soldierTypes[0].getHealth() / soldierTypes[i].getHealth()) * Math.random()));
+                                if (i < soldierTypes.length - 1) {
+                                    temp.append(",");
+                                }
+                            }
+                            site.setArmy(temp.toString());
+                            temp = new StringBuilder();
+                            ResourceType[] resourceType = ResourceType.values();
+                            for (int i = 0; i < resourceType.length; i++) {
+                                temp.append((int)(10000 * Math.random()));
+                                if (i < resourceType.length - 1) {
+                                    temp.append(",");
+                                }
+                            }
+                            site.setResources(temp.toString());
                         } else {
                             site.setSiteType("empty");
                         }
@@ -49,6 +63,15 @@ public class PlatTable {
     public Site getSite(int playerCityId) {
         try {
             return (Site) sqlMapClient.queryForObject("selectSiteByPlayerCityId", playerCityId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Site getSite(int x, int y) {
+        try {
+            return (Site) sqlMapClient.queryForObject("selectSiteByCoordinate", new Site(x, y));
         } catch (SQLException e) {
             e.printStackTrace();
         }

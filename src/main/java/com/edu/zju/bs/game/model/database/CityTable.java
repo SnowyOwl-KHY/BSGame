@@ -37,6 +37,16 @@ public class CityTable {
         return null;
     }
 
+    public City getCity(int id) {
+        try {
+            City city = (City) sqlMapClient.queryForObject("selectCityById", id);
+            return city;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public int add(City city) {
         try {
             sqlMapClient.insert("insertCity", city);

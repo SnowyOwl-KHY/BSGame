@@ -26,6 +26,10 @@
         SELECT * FROM city WHERE username = #username#
     </select>
 
+    <select id="selectCityById" parameterClass="Integer" resultMap="city.rm">
+        SELECT * FROM city WHERE id = #id#
+    </select>
+
     <insert id="insertCity" parameterClass="City">
         INSERT INTO city(username, buildings, army, resources) VALUES(#username#, #buildings#, #army#, #resources#)
     </insert>
