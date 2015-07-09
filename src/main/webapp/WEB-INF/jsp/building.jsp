@@ -35,8 +35,11 @@
     <tr>
         <td align="center">${type.desc}</td>
         <td align="center">
-            <img src="/static/resource/city/levelup.png" width="100px"
-                 onclick="buildStructure(username, type, buildingId, level+1)"/>
+            <div>
+                <p>升级需要${type.cost}木材</p>
+                <img src="/static/resource/city/levelup.png" width="100px"
+                     onclick="buildStructure(username, type, buildingId, level+1)"/>
+            </div>
         </td>
     </tr>
 
@@ -58,13 +61,16 @@
         </tr>
         <tr>
             <td align="center">
-                    ${soldierType.desc}
+                <div>
+                    <p>${soldierType.desc}</p>
+                    <p>费用: ${soldierType.cost}金币</p>
+                </div>
             </td>
             <td align="center">
                 <script>
                     var ${soldierType.name}InputId = "${soldierType.name}Number";
                     var ${soldierType.name}Type = "${soldierType.name}";
-                    var ${soldierType.name}Cost = ${soldierType.cost}
+                    var ${soldierType.name}Cost = ${soldierType.cost};
                 </script>
                 <div id="${soldierType.name}Train">
                     <img src="/static/resource/soldier/train-button.png" width="100px"

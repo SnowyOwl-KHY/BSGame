@@ -61,7 +61,7 @@ public class DataSolver {
         }
         accountTable.add(username, passwordCipher);
         City city = new City(username);
-        city.setResources("1000,400");
+        city.setResources("10000,2000");
         int id = cityTable.add(city);
         int x = (int) (PlatCoordinateRange.MAX_RANGE * Math.random());
         int y = (int) (PlatCoordinateRange.MAX_RANGE * Math.random());
